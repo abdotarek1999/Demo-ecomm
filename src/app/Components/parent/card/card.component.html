@@ -1,0 +1,16 @@
+<div class="card h-100">
+  <img [src]="onerecord.images[0]" class="img-fluid card-img-top w-50" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{onerecord.title | titlecase}}</h5>
+    <h5>{{onerecord.price | currency}}</h5>
+    <p class="card-text">{{onerecord.description | shorttext:45}}</p>
+    <p class="card-text" [innerHTML]="onerecord.stock | stock"></p>
+    <a class="btn btn-success" (click)="addtocartservice(onerecord.id)">Add To Cart</a>
+
+    <a class="btn btn-primary" routerLink="/details/{{onerecord.id}}">Details</a>
+
+  </div>
+  <div class="card-footer">
+    {{onerecord.createdAt | shorttext:10}}
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<form [formGroup]="userregister" (ngSubmit)="submitteddata(userregister)" class="w-50 m-auto my-5 p-5 border border-info">
+
+  <div class="mb-3">
+    <label for="exampleInputName" class="form-label">Name</label>
+    <input type="text" class="form-control" id="exampleInputName" name="name" formControlName="name" >
+    <div class="alert alert-danger" [hidden]="name?.valid || name?.untouched">
+      <small *ngIf="name?.errors?.['required']">Name  is required</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputemail" class="form-label">email</label>
+    <input type="text" class="form-control" id="exampleInputemail" name="email" formControlName="email" >
+    <div class="alert alert-danger" [hidden]="email?.valid || email?.untouched">
+      <small *ngIf="email?.errors?.['required']">email is required</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputusername" class="form-label">username</label>
+    <input type="text" class="form-control" id="exampleInputusername" name="username" formControlName="username" >
+    <div class="alert alert-danger" [hidden]="username?.valid || username?.untouched">
+      <small *ngIf="username?.errors?.['required']">username is required</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputpassword" class="form-label">password</label>
+    <input type="text" class="form-control" id="exampleInputpassword" name="password" formControlName="password" >
+    <div class="alert alert-danger" [hidden]="password?.valid || password?.untouched">
+      <small *ngIf="password?.errors?.['required']">password is required</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputconfirmpassword" class="form-label">confirmpassword</label>
+    <input type="text" class="form-control" id="exampleInputconfirmpassword" name="confirmpassword" formControlName="confirmpassword" >
+
+      <div class="alert alert-danger" *ngIf="confirmpassword?.errors?.['required'] && confirmpassword?.touched">confirmpassword is required</div>
+      <br>
+      <div class="alert alert-danger" *ngIf="userregister?.errors?.['passwordnotidenticalconfirm']">{{userregister.errors?.['passwordnotidenticalconfirm']}}</div>
+  </div>
+
+  <div formArrayName="address">
+    <div class="mb-3" *ngFor="let number of fulladdress.controls;let i=index"  [formGroupName]="i">
+      <label for="{{'address'+i}}" class="form-label"> address{{i+1}} </label>
+      <input type="text" class="form-control" id="{{'address'+i}}" name="address1" formControlName="addr" placeholder="address">
+      <input type="text" class="form-control" id="{{'address'+i}}" name="address2" formControlName="street" placeholder="street">
+      <input type="text" class="form-control" id="{{'address'+i}}" name="address3" formControlName="city" placeholder="city" >
+      <input type="text" class="form-control" id="{{'address'+i}}" name="address4" formControlName="country" placeholder="country" >
+
+      <a class="btn btn-primary" (click)="addanotheraddress()">Add address</a>
+      <a class="btn btn-danger" [hidden]="i==0" (click)="removeaddress()">remove address</a>
+
+    </div>
+  </div>
+
+
+
+
+  <button type="submit" [disabled]="userregister.invalid" class="btn btn-success">Submit</button>
+</form>
+
+<div class="text-center">Dont Have account?<a routerLink="/login">Login</a>
+
+</div>
+
+
+
+<div>
+  {{userregister.value | json}}
+</div>
+
+<div>
+  {{userregister.errors | json}}
+</div>
+

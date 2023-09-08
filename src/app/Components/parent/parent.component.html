@@ -1,0 +1,25 @@
+<div class="container">
+  <section class="listproduct my-5">
+
+    <div class="input-group mb-3 w-50">
+      <input type="text" #searchreference class="form-control" placeholder="search" aria-label="Recipient's username" aria-describedby="basic-addon2">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="searchaboutproduct(searchreference.value)" type="button">search</button>
+      </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <ng-container *ngFor="let item of data">
+        <div class="col">
+          <app-card [onerecord]="item"></app-card>
+          </div>
+      </ng-container>
+    </div>
+
+    <button (click)="seedata()">view</button>
+  </section>
+
+</div>
+
+
+

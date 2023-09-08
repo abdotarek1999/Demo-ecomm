@@ -1,0 +1,25 @@
+
+
+<form #userform="ngForm" (ngSubmit)="submitteddata(userform)" class="w-50 m-auto my-5 p-5 border border-info">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" name="email" ngModel #inputmodel="ngModel" required >
+    <div class="alert alert-danger" [hidden]="inputmodel?.valid || inputmodel?.untouched">
+      <small *ngIf="inputmodel?.errors?.['required']">email is required</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" ngModel #passwordmodel="ngModel" required name="password">
+    <div class="alert alert-danger" [hidden]="passwordmodel?.valid || passwordmodel?.untouched">
+      <small *ngIf="passwordmodel?.errors?.['required']">password is required</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="userform?.invalid" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="text-center">Dont Have account?<a routerLink="/register">Register</a>
+
+</div>

@@ -1,0 +1,19 @@
+<section class="productdetails">
+  <div class="container">
+    <div class="card w-50">
+      <img [src]="filterproduct!.images[0]" class="img-fluid w-50" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{filterproduct?.title}}</h5>
+        <h5>{{filterproduct?.price | currency }}</h5>
+        <p class="card-text">{{filterproduct!.description | shorttext:45}}</p>
+        <a class="btn btn-success">Add To Cart</a>
+
+
+      </div>
+      <div class="card-footer">
+        {{filterproduct!.createdAt | shorttext:10}}
+      </div>
+    </div>
+
+  </div>
+</section>

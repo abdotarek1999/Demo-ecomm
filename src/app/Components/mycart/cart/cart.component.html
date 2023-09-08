@@ -1,0 +1,45 @@
+<section class="mycart">
+  <div class="container">
+
+    <div *ngIf="mycart!.length == 0;else elseblock" class="alert alert-danger text-center my-5">
+      Cart Is Empty
+    </div>
+    <button (click)="clearcart()">clear cart</button>
+
+    <ng-template #elseblock>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">image</th>
+            <th scope="col">name</th>
+            <th scope="col">price</th>
+            <th scope="col">quantity</th>
+            <th scope="col">action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let item of mycart;let i=index">
+            <tr>
+              <th width="20%">
+                <img [src]="item.images[0]" class="img-fluid" alt="">
+              </th>
+              <td>{{item.title}}</td>
+              <td>{{item.price}}</td>
+              <td>
+                <button class="btn btn-primary">+</button>
+                5
+                <button class="btn btn-warning">-</button>
+              </td>
+              <td>
+                <button class="btn btn-danger" (click)="deleteproductfromcart(item.id)">Remove</button>
+              </td>
+            </tr>
+          </ng-container>
+
+        </tbody>
+      </table>
+      <h3 class="text-end">Total:{{totalprice}} EGP</h3>
+    </ng-template>
+
+  </div>
+</section>
