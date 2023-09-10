@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CartService} from '../../Services/cart.service'
-import { Productinterface } from 'src/models/productinterface';
+import { ErrorEnum,Productinterface } from 'src/models/productinterface';
 
 @Component({
   selector: 'app-cart',
@@ -20,7 +20,7 @@ export class CartComponent implements OnInit{
     if(this.cartservice.getmycart())
       this.mycart=this.cartservice.getmycart();
       this.mycart?.forEach((elem=>{
-        this.totalprice+=elem.price;
+        this.totalprice+=elem.price*elem.quantity;
       }))
   }
 
@@ -32,6 +32,34 @@ export class CartComponent implements OnInit{
     })
     this.cartservice.deleteproductcart(pid);
   }
+
+
+  increaseprice(product:Productinterface){
+    if(product.quantity >= product.stock ){
+      product.quantitiyerror=1;
+    }
+    else{
+      this.totalprice+=product.price;
+      product.quantity++;
+      product.quantitiyerror=0;
+
+    }
+
+  }
+
+  decreaseprice(product:Productinterface){
+    if(product.quantity <= 0 ){
+      product.quantitiyerror=-1;
+    }
+    else{
+      this.totalprice-=product.price;
+      product.quantity--;
+      product.quantitiyerror=0;
+
+    }
+
+  }
+
 
   clearcart(){
     this.cartservice.deletecart();

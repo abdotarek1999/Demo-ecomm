@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Productinterface } from 'src/models/productinterface';
+import { ErrorEnum, Productinterface } from 'src/models/productinterface';
 import {BehaviorSubject, Observable} from "rxjs";
 import {HandleproductService } from './handleproduct.service';
 
@@ -9,12 +9,28 @@ import {HandleproductService } from './handleproduct.service';
 })
 export class CartService {
 
-  cart:Productinterface[]=[];
+  cart:Productinterface[]=[{
+    id: 0,
+    title: '',
+    description: '',
+    price: 0,
+    discountPercentage: 0,
+    rating: 0,
+    stock: 0,
+    brand: '',
+    category: '',
+    thumbnail: '',
+    images: [],
+    createdAt:'',
+    quantity:0,
+    quantitiyerror:0
+  }];
   private counter=new BehaviorSubject<number>(0);
 
 
   constructor(private handle:HandleproductService) {
     this.cart=JSON.parse(localStorage.getItem("cart")!)  || [];
+    console.log(this.cart);
     this.counter.next(Number(localStorage.getItem("cartlength")));
     console.log(this.cart);
   }
@@ -24,11 +40,25 @@ export class CartService {
   }
 
   inserttocard(pid:number){
-   this.handle.getproductdetails(pid).subscribe(prod=>{
-      this.cart.push(prod);
-      localStorage.setItem("cart",JSON.stringify(this.cart));
-      this.setLength();
+    let flag=0;
+    this.cart.find(prod=>{
+      if(prod.id === pid){
+        prod.quantity++;
+        flag=1;
+      }
     });
+
+    if(!flag){
+      this.handle.getproductdetails(pid).subscribe(prod=>{
+        prod.quantity = 1;
+        prod.quantitiyerror=0;
+
+        this.cart.push(prod);
+        localStorage.setItem("cart",JSON.stringify(this.cart));
+        this.setLength();
+      });
+    }
+
   }
 
   setLength(){

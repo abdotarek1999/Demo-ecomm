@@ -4,7 +4,6 @@
     <div *ngIf="mycart!.length == 0;else elseblock" class="alert alert-danger text-center my-5">
       Cart Is Empty
     </div>
-    <button (click)="clearcart()">clear cart</button>
 
     <ng-template #elseblock>
       <table class="table">
@@ -26,9 +25,13 @@
               <td>{{item.title}}</td>
               <td>{{item.price}}</td>
               <td>
-                <button class="btn btn-primary">+</button>
-                5
-                <button class="btn btn-warning">-</button>
+                <button class="btn btn-primary" (click)="increaseprice(item)" [disabled]="item.quantitiyerror==1">+</button>
+                {{(item.quantity)? item.quantity : 0}}
+                <button class="btn btn-warning" (click)="decreaseprice(item)" [disabled]="item.quantitiyerror==-1">-</button>
+                <div>
+                  <small  *ngIf="item.quantitiyerror==1" class="alert alert-danger"> cannot order more than {{item.stock}}</small>
+                  <small *ngIf="item.quantitiyerror==-1" class="alert alert-danger"> cannot order less than 0</small>
+                </div>
               </td>
               <td>
                 <button class="btn btn-danger" (click)="deleteproductfromcart(item.id)">Remove</button>
@@ -39,6 +42,9 @@
         </tbody>
       </table>
       <h3 class="text-end">Total:{{totalprice}} EGP</h3>
+
+      <button (click)="clearcart()" class="btn btn-danger">clear cart</button>
+
     </ng-template>
 
   </div>
