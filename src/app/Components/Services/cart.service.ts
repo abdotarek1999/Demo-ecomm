@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { ErrorEnum, Productinterface } from 'src/models/productinterface';
+import { Productinterface } from 'src/models/productinterface';
 import {BehaviorSubject, Observable} from "rxjs";
 import {HandleproductService } from './handleproduct.service';
 

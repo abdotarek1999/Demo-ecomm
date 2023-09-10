@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CartService} from '../../Services/cart.service'
-import { ErrorEnum,Productinterface } from 'src/models/productinterface';
+import { Productinterface } from 'src/models/productinterface';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-cart',
@@ -13,10 +14,15 @@ export class CartComponent implements OnInit{
   totalprice:number=0;
 
 
-  constructor(private cartservice:CartService){
+  constructor(private cartservice:CartService,
+    private spinner: NgxSpinnerService){
   }
 
   ngOnInit(): void {
+    this.spinner.show();
+    setTimeout(() => {
+     this.spinner.hide();
+   }, 500);
     if(this.cartservice.getmycart())
       this.mycart=this.cartservice.getmycart();
       this.mycart?.forEach((elem=>{

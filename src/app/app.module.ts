@@ -15,6 +15,8 @@ import { DetailsComponent } from './Components/parent/productdetails/details/det
 import { LoginComponent } from './Components/userlogin/login/login.component';
 import { RegisterComponent } from './Components/userregister/register/register.component';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { FormsModule , ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,8 @@
 <section class="mycart">
   <div class="container">
 
+    <ngx-spinner></ngx-spinner>
+
     <div *ngIf="mycart!.length == 0;else elseblock" class="alert alert-danger text-center my-5">
       Cart Is Empty
     </div>
