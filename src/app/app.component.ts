@@ -9,6 +9,6 @@ import datajson from '../assets/products-list.json';
 })
 export class AppComponent{
 
-
+title:string='coursedemocopy';
 
 }
